@@ -44,6 +44,11 @@ fieldset.half{
   margin: 0;
 }
 
+fieldset .quarter{
+  width:48%;
+  display: inline-block;
+}
+
 fieldset.half:first-child{
   margin-right: 15px;
 }
