@@ -1,0 +1,59 @@
+*{
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  background-color: #dcd6cd;
+  font-family:'Monsterrat', sans-serif;
+  font-size: 14px;
+  font-weight: normal;
+  margin: 10px 0;
+  padding: 0;
+}
+
+section{
+  margin: 0 auto;
+  width: 620px;
+}
+
+form{
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  display: block;
+}
+
+h1 {
+  margin: 30px 0;
+  padding: 5px;
+  color: #104675;
+  letter-spacing: 0.1rem;
+  font-weight: 100;
+}
+
+fieldset{
+  width: 100%;
+  border: 0;
+}
+
+fieldset.half{
+  width: 300px;
+  display: inline-block;
+  margin: 0;
+}
+
+form fieldset legend{
+  background: #938c97;
+  border-radius: 2px;
+  color: #fff;
+  display: block;
+  font-size: 18px;
+  margin: 15px 0;
+  padding: 13px;
+  width: 100%;
+}
+div{
+  display: block;
+}
