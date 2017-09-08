@@ -18,15 +18,21 @@
                     <label for="form-name">Név</label>
                     <input type="text" name="name" id="form-name" required>
                  </div>
+                 <div class="half">
+                        <label for="form-born">Szuletesi év</label>
+                        <input type="number" name="born" id="form-born" placeholder="pl. 1984" min="1900" max="2100" maxlength="4">
+                 </div>    
+                 <div class="">
+                     
             </fieldset>
             <fieldset class="half">
                     <legend>Kapcsolat</legend>
                     <div>
-                        <label for="form-tel">Telefonszam</label>
+                        <label for="form-tel">Telefonszám</label>
                         <input type="text" name="tel" placeholder="+36 -- --- ----" id="form-tel" required>
                     </div>
                     <div>
-                        <label for="form-email">E-mail cim</label>
+                        <label for="form-email">E-mail cím</label>
                         <input type="text" name="email" id="form-email" placeholder="nev@domain.hu" required>
                     </div>
                     <div>
@@ -38,17 +44,17 @@
                         <input type="text" name="twitter" id="form-twitter" placeholder="http://twitter.com/...">
                     </div>
                     <div>
-                        <label for="form-house">Milyen hazban laksz</label>
+                        <label for="form-house">Milyen házban laksz</label>
                         <select id="form-house" name="house">
-                            <option value="house">Haz</option> 
-                            <option value="doublehouse">Ikerhaz</option>
-                            <option value="flat">Lakas</option>
+                            <option value="house">Ház</option> 
+                            <option value="doublehouse">Ikerház</option>
+                            <option value="flat">Lakás</option>
                         </select>
                     </div>
             </fieldset>
             <fieldset>
                 <div>
-                    <label for="about">Bemutatkozas</label>
+                    <label for="about">Bemutatkozás</label>
                     <textarea id="about" name="bio" placeholder="Írj magadról pár mondatot">
                     </textarea>
                 </div>
