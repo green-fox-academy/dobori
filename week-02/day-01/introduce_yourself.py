@@ -8,3 +8,7 @@
 #  John Doe
 #  31
 #  1.87
+height = 1.56
+print('Dobo Bori')
+print('37')
+print(height)
