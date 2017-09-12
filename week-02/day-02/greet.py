@@ -3,9 +3,9 @@
 #     - Greeting is printing e.g. `Greetings, dear Greenfox`
 # - Greet `al`
 
-al = 'Greeenfox'
 
-def greet():
-    print('Greetings, dear ' + al)
 
-greet()
+def greet(name):
+    print('Greetings, dear ' + name)
+
+greet('Greenfox')
