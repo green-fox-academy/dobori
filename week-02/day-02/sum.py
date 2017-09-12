@@ -1,10 +1,10 @@
 # - Write a function called `sum` that sum all the numbers
 #   until the given parameter
 
-def sum(*numbers):
+def sum(number):
     total = 0
-    for n in numbers:
+    for n in range(0, number+1 ):
         total += n
     print (total)
 
-sum(25, 28, 63, 42, 85, 12)
+sum( 3 )
