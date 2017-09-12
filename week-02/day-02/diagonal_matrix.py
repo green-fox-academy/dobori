@@ -20,9 +20,14 @@ def matrix(height, width):
         full.append(row_list)
     return full
 
-def print_map(full):
-    for row in full:
-        print(row)
+#def print_map(full):
+#    for row in full:
+#        print(row)
 
-print_map(matrix(4, 4))
+#print_map(matrix(4, 4))
+
+for row_list in matrix(4, 4):
+    for k in row_list:
+        print(k, end=' ')
+    print()
 
