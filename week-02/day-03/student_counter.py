@@ -16,7 +16,17 @@ def candies():
         allcandies += i['candies']
     print(allcandies)
 
+
+def studentscandies():
+    candies = 0
+    for i in students:
+        name = i['name']
+        candies = i['candies']
+        print(name, candies) 
+       
+
 candies()
+studentscandies()
 
 # create a function that takes a list of students and prints:
 # - Sum of the age of people who have lass than 5 candies
