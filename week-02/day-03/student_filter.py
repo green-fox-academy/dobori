@@ -20,3 +20,12 @@ studentscandies()
 
 # create a function that takes a list of students and prints: 
 #  - how many candies they have on average
+
+def average_candies():
+    candies = 0
+    for i in students:
+        candies += i['candies']
+    av_candies = candies / len(students)   
+    print(av_candies) 
+
+average_candies()
