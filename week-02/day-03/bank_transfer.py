@@ -15,13 +15,12 @@ accounts = [
 #
 # Print "404 - account not found" if any of the account numbers don't exist
 
-#def returning():
-#    for i in accounts:
-#        print(i['client_name'], i['balance'])
-
-#returning()
+def returning():
+    for i in accounts:
+        return(i['client_name'], i['balance'])
 
 def transfering(from_client, to, amount):
+    returning()
     for i in accounts:
         if i['account_number'] == from_client:
             i['balance'] -= amount
@@ -29,5 +28,4 @@ def transfering(from_client, to, amount):
             i['balance'] += amount
         print(i['client_name'],i['balance'] )
     
-
-transfering(11234543, 43546731, 100)
+transfering(11234543, 43546731, 500)
