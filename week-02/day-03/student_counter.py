@@ -9,14 +9,7 @@ students = [
 
 # create a function that takes a list of students and prints: 
 # - how many candies are owned by students
-#def candies():
-#   pieces = 0
-#    for i in range(len(students)):
-#        pieces = dict['candies']
- #   return pieces
- #   print(pieces)
 
-#candies()
 def candies():
     allcandies = 0
     for i in students:
@@ -25,8 +18,14 @@ def candies():
 
 candies()
 
-
-
 # create a function that takes a list of students and prints:
 # - Sum of the age of people who have lass than 5 candies
 
+def peopleage():
+    sumage = 0
+    for i in students:
+        if i['candies'] < 5:
+            sumage += i['age']
+    print(sumage)
+
+peopleage()
