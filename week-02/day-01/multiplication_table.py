@@ -13,3 +13,10 @@
 # 8 * 15 = 120
 # 9 * 15 = 135
 # 10 * 15 = 150
+
+number = int(input('Give a number: '))
+
+for i in range(0, 10):
+    result = 0
+    result = i * number
+    print(str(i) + ' * ' + str(number) + ' = ' + str(result))
