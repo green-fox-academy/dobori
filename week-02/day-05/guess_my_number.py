@@ -5,9 +5,8 @@ from random import randint
 # You can add lives. (optional)
 
 
-is_number = randint(0, 100)
+is_number = randint(1, 100)
 step_number = 5
-guess = 0
 i = 0
 
 
@@ -32,10 +31,10 @@ while i < step_number:
     guess = int(input('Your guess is: '))
     result = check_feedback(is_number, guess)
     i += 1
-    if i < step_number and result:
+    if i <= step_number and result:
         print('You won!')
         break
-    elif i == step_number:
-        print('You lose')
+    elif i == step_number and not result:
+        print('You loose, you are out of lifes!')
         break
 
