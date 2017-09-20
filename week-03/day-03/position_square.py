@@ -19,6 +19,3 @@ draw_triangle(90, 90)
 
 
 root.mainloop()
-
-
-root.mainloop()
