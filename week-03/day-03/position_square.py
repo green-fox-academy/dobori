@@ -10,12 +10,12 @@ canvas.pack()
 # and draws a 50x50 square from that point.
 # draw 3 squares with that function.
 
-def draw_triangle(x, y):
+def draw_rectangle(x, y):
     canvas.create_rectangle(x, y, x + 50, y + 50)
 
-draw_triangle(36, 48)
-draw_triangle(50, 50)
-draw_triangle(90, 90)
+draw_rectangle(36, 48)
+draw_rectangle(50, 50)
+draw_rectangle(90, 90)
 
 
 root.mainloop()
