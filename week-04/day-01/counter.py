@@ -10,22 +10,20 @@
 # Run the test file as a usual python program
 
 class Counter(object):
-    n = 0
 
-    def __init__(self, number):
+    def __init__(self, number = 0):
         self.number = number
     
-    def add(self):
-        if self.number == "":
-            self.n += 1
-        else:
-            self.n += self.number
-        return self.n
+    def add(self, adding = 1):
+        self.number += adding
+        return self.number
 
     def get(self):
-        return self.n
+        return self.number
 
     def reset(self):
-        self.n = 0
-        return self.n
+        self.number -= self.get() 
 
+elem = Counter(25)
+elem.get()
+print(elem.number)
