@@ -6,6 +6,7 @@
 # gender: the gender of the person (male / female)
 # And the following methods:
 
+
 class Person(object):
 
     def __init__(self, name, age, gender):
@@ -20,22 +21,11 @@ class Person(object):
         print("My goal is: Live for the moment!")
 
 person1 = Person("Jane Doe", "30", "female")
-person1.introduce()
-person1.get_goal()
+#person1.introduce()
+#person1.get_goal()
 
 # Student
 
-class Student(object):
-
-    def __init__(self, previous_organization, skipped_days):
-        self.previous_organization = previous_organization
-        self.skipped_days = skipped_days
-
-    def get_goal(self):
-        print("Be a junior software developer.")
-
-    def introduce(self):
-        print( "Hi, I'm", self.name, self.age, "year old", self.gender, "from", self.previous_organization,  who skipped skipped_days days from the course already.")
 # Create a Student class that has the same fields and methods as the Person class, and has the following additional
 
 # fields:
@@ -45,12 +35,32 @@ class Student(object):
 # get_goal(): prints out "Be a junior software developer."
 # introduce(): "Hi, I'm name, a age year old gender from previous_organization who skipped skipped_days days from the course already."
 # skip_days(number_of_days): increases skipped_days by number_of_days
+
+
 # The Student class has the following constructors:
 
 # Student(name, age, gender, previous_organization): beside the given parameters, it sets skipped_days to 0
 # Student(): sets name to Jane Doe, age to 30, gender to female, previous_organization to The School of Life, skipped_days to 0
-# Mentor
+class Student(Person):
 
+    def __init__(self, name, age, gender, previous_organization, skipped_days = 0):
+        super().__init__(name, age, gender)
+        self.previous_organization = previous_organization
+        self.skipped_days = skipped_days
+
+    def get_goal(self):
+        print("Be a junior software developer.")
+
+    def introduce(self):
+        print( "Hi, I'm", self.name, self.age, "year old", self.gender, "from", self.previous_organization,  "who skipped", self.skipped_days, "days from the course already.")
+
+    def skip_days(self, number_of_days):
+        self.skipped_days += number_of_days
+        return self.skipped_days
+
+student1 = Student("Jane Doe", "30", "female", "The School of Life")
+
+# Mentor
 # Create a Mentor class that has the same fields and methods as the Personclass, and has the following additional
 
 # fields:
@@ -62,6 +72,27 @@ class Student(object):
 
 # Mentor(name, age, gender, level)
 # Mentor(): sets name to Jane Doe, age to 30, gender to female, level to intermediate
+
+
+class Mentor(Person):
+    def __init__(self, name, age, gender, level):
+        super().__init__(name, age, gender)
+        self.level = level
+
+def get_goal(self):
+        print("Educate brilliant junior software developers.")
+
+def introduce(self):
+        print( "Hi, I'm", self.name, self.age, "year old", self.gender, self.level "mentor")
+
+mentor1 = Mentor.("Jane Doe", 30, "female", "intermediate")
+
+
+class Sponsor(Person):
+    def __init__(self, name, age, gender, company, hired_students):
+        super().__init__(name, age, gender)
+        self.company = company
+
 # Sponsor
 
 # Create a Sponsor class that has the same fields and methods as the Person class, and has the following additional
