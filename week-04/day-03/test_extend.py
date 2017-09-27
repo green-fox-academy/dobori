@@ -43,6 +43,9 @@ class TestExtend(unittest.TestCase):
 
     def test_translate_kolbice(self):
         self.assertEqual(extend.translate('kolbice'), 'kovolbiviceve')
+    
+    def test_translate_kolbasz(self):
+        self.assertEqual(extend.translate('kolbász'), 'kovolbávász')
 
 if __name__ == '__main__':
     unittest.main()
