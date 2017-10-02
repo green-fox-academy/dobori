@@ -26,21 +26,16 @@ class Map(object):
                    
         self.tilesize = 72
         self.floor = PhotoImage(file = "images/floor.png")
-
-
-    def floor_draw(self):
-        canvas.create_image(36 , 36, image = self.floor)
+        self.wall = PhotoImage(file = "images/wall.png")
 
 
     def draw_map(self):
         for y in range(len(self.tilemap)):
             for x in range(len(self.tilemap)):
                 if self.tilemap[y][x] == 0: 
-                    self.floor_draw()
-                    canvas.create_rectangle(y * self.tilesize, x * self.tilesize, self.tilesize + y * self.tilesize, self.tilesize + x * self.tilesize, fill="red")
+                    canvas.create_image( self.tilesize/2 + y * self.tilesize, self.tilesize/2 + x * self.tilesize, image = self.floor)                 
                 if self.tilemap[y][x] == 1: 
-                    canvas.create_rectangle(y * self.tilesize, x * self.tilesize, self.tilesize + y * self.tilesize, self.tilesize + x * self.tilesize, fill="green")
-        self.floor_draw()
+                    canvas.create_image( self.tilesize/2 + y * self.tilesize, self.tilesize/2 + x * self.tilesize, image = self.wall) 
 
 
 tiled_map = Map() 
