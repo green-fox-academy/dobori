@@ -1,5 +1,4 @@
 from tkinter import *
-from PIL import Image, ImageTk
 
 
 width = 720
@@ -31,7 +30,6 @@ class Map(object):
         self.wall = PhotoImage(file = "images/wall.png")
 
 
-
     def draw_map(self):
         for y in range(len(self.tilemap)):
             for x in range(len(self.tilemap)):
@@ -53,17 +51,35 @@ class Hero(Entity):
         self.y = self.tile/2
         self.entity_type = "Hero"
         self.entity_image = PhotoImage(file = "images/hero-down.png")
+        
 
-    def draw_hero(self):
-        canvas.create_image(self.x, self.y, image = self.entity_image)
+    def draw_hero(self, x, y, size):
+        self.hero = canvas.create_image(x + size / 2, y+ size / 2, image = self.entity_image)
 
-
-
+    def move(self, dx, dy):
+        canvas.move(self.hero, dx, dy)
 
 tiled_map = Map() 
 tiled_map.draw_map()
-hero_hero = Hero()
-hero_hero.draw_hero()
+myhero = Hero()
+myhero.draw_hero(0, 0, 72)
+
+def on_key_press(e):
+    if ( e.keysym == 'Up' ):
+        myhero.move(0, -72)
+    elif( e.keysym == 'Down' ):
+        myhero.move(0, 72)
+    elif( e.keysym == 'Left' ):
+        myhero.move(-72, 0)
+    elif( e.keysym == 'Right' ):
+        myhero.move(72, 0)
+
+root.bind("<KeyPress>", on_key_press)
+canvas.pack()
+
+canvas.focus_set()
+
+
 
 
 
