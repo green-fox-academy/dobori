@@ -33,9 +33,9 @@ class Map(object):
         for y in range(len(self.tilemap)):
             for x in range(len(self.tilemap)):
                 if self.tilemap[y][x] == 0: 
-                    canvas.create_image( self.tilesize/2 + y * self.tilesize, self.tilesize/2 + x * self.tilesize, image = self.floor)                 
+                    canvas.create_image(self.tilesize/2 + y * self.tilesize, self.tilesize/2 + x * self.tilesize, image = self.floor)                 
                 if self.tilemap[y][x] == 1: 
-                    canvas.create_image( self.tilesize/2 + y * self.tilesize, self.tilesize/2 + x * self.tilesize, image = self.wall) 
+                    canvas.create_image(self.tilesize/2 + y * self.tilesize, self.tilesize/2 + x * self.tilesize, image = self.wall) 
 
 
 tiled_map = Map() 
