@@ -93,12 +93,14 @@ class Skeleton(Entity):
 
 class Boss(Entity):
 
-    def __init__(self):
+    def __init__(self, canvas):
+        super().__init__(canvas)
         self.boss = None
         self.x_coord = 0
         self.y_coord = 0
         self.boss_img = PhotoImage(file = "images/boss.png")
     
+
     def draw_boss(self):
         self.boss = self.canvas.create_image( self.x_coord * size + size / 2, self.y_coord * size + size / 2, image = self.boss_img)
 
@@ -112,6 +114,7 @@ class Game(object):
         self.myhero.draw_hero()
         self.skeletons = []
         self.put_skeletons()
+        self.put_boss()
         self.tiled_map.root.bind("<KeyPress>", self.on_key_press)
         self.tiled_map.canvas.pack()
         self.tiled_map.canvas.focus_set()
@@ -144,6 +147,15 @@ class Game(object):
                 i += 1
             else:
                 del self.skeletons[i]
+
+    def put_boss(self):
+        self.boss1 = Boss(self.tiled_map.canvas)
+        self.boss1.random_coords()
+        if self.tiled_map.get_cell(self.boss1.x_coord, self.boss1.y_coord) == True:
+            self.boss1.draw_boss()
+        else:
+            self.put_boss()
+
 
 
 game = Game()
