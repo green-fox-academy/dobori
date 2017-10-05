@@ -95,18 +95,30 @@ class Skeleton(Entity):
 
     def draw_skeleton(self):
         self.skeleton = canvas.create_image( self.x_coord * size + size / 2, self.y_coord * size + size / 2, image = self.skeleton_img)
-        
+
 
 
 tiled_map = Map() 
 tiled_map.draw_map()
 myhero = Hero()
 myhero.draw_hero()
-skeleton1 = Skeleton()
-skeleton1.random_coords()
-if tiled_map.get_cell(skeleton1.x_coord, skeleton1.y_coord) == True:
-    skeleton1.draw_skeleton()
 
+
+skeletons = []
+
+
+while len(skeletons) < 3: 
+    i =  0  
+    skeletons.append("skeleton") 
+    skeletons[i] = Skeleton()
+    skeletons[i].random_coords()
+    if tiled_map.get_cell(skeletons[i].x_coord, skeletons[i].y_coord) == True:
+        skeletons[i].draw_skeleton()
+        i += 1
+    elif tiled_map.get_cell(skeletons[i].x_coord == 0, skeletons[i].y_coord == 0):
+        del skeletons[i]
+    else:
+        del skeletons[i]
 
 
 def on_key_press(e):
