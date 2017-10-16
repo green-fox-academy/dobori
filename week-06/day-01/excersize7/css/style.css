@@ -59,7 +59,7 @@ nav li:first-child{
     justify-content: space-between;
     margin: 0 auto 20px auto;
     padding: 60px 0 20px 0;
-    width: 1000px;
+    max-width: 1000px;
   }
 
 .box{
