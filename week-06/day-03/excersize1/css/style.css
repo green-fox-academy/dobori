@@ -6,6 +6,9 @@ body{
 table {
   margin: 30px auto 0 auto;
   width: 500px;
+  -webkit-box-shadow: 4px 4px 11px -6px rgba(102,90,102,1);
+  -moz-box-shadow: 4px 4px 11px -6px rgba(102,90,102,1);
+  box-shadow: 4px 4px 11px -6px rgba(102,90,102,1);
 }
 
 td, th {
