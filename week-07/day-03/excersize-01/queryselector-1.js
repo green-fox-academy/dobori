@@ -18,24 +18,24 @@
 //   show the result in an 'alert' window.
 
 
-var king = document.getElementById('b325').innerHTML;
-console.log(king);
+var king = document.querySelector('.asteroid');
+console.log(king.innerHTML);
 
-var conceited = document.getElementsByClassName('b326');
-alert(conceited[0].innerHTML);
+var conceited = document.querySelector('.b326');
+alert(conceited.innerHTML);
 
-var businesslamp = document.getElementsByClassName('big');
+var businesslamp = document.querySelectorAll('.big');
 console.log(businesslamp[0].innerHTML);
 console.log(businesslamp[1].innerHTML);
 
-var conceitedKing = document.getElementsByClassName('asteroid');
+var conceitedKing = document.querySelectorAll('.asteroid');
 alert(conceitedKing[0].innerHTML);
 alert(conceitedKing[1].innerHTML);
 
-var noBusiness = document.getElementsByClassName('asteroid');
+var noBusiness = document.querySelectorAll('.asteroid');
 console.log(noBusiness[0].innerHTML);
 console.log(noBusiness[1].innerHTML);
 console.log(noBusiness[3].innerHTML);
 
-var allBizniss = document.getElementsByTagName('p');
+var allBizniss = document.querySelector('p');
 alert(allBizniss.innerHTML);
