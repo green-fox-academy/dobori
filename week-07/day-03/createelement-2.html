@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop: CreateElement</title>
+</head>
+<body>
+  <h1>The candyshop has:</h1>
+  <ul class="candyshop">
+    <li>1 Mega juicy candy</li>
+  </ul>
+
+  <script>
+    // Remove the Mega juicy candy from the list.
+    let juicyCandyUl = document.querySelector('ul.candyshop');
+    let juicyCandy = document.querySelector('li');
+        juicyCandyUl.removeChild(juicyCandy);
+    // Add 16 list items saying 'Empty box' to the list and add an index to it, like:
+    // Empty box #1
+    // Empty box #2
+    // Empty box #3
+    // ...
+    for (let i = 1; i<=16; i++){
+        var newList = document.createElement('li');
+        newList.textContent = 'Empty box # ' + i;
+        juicyCandyUl.appendChild(newList);
+    }
+
+    // Empty box #1
+    // Empty box #2
+    // Empty box #3
+    // ...
+  </script>
+
+</body>
+</html>
