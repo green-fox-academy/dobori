@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Workshop: ClassList</title>
+  <style>
+    .red {
+      color: red;
+    }
+    .balloon {
+      background-color: lime;
+      border-radius: 100%;
+    }
+    .pear {
+      background: lime;
+      padding: 2rem;
+      text-decoration: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <p class="apple">apple</p>
+  <p class="balloon">balloon</p>
+  <p class="cat red-dot">cat</p>
+  <p>dolphin</p>
+
+  <script>
+    // Does the third p have a red-dot class?
+    // If so, alert 'OMG DOTS!'
+    // If the fourth p has a 'dolphin' class, replace apple's content with 'pear'
+    // If the first p has an 'apple' class, replace cat's content with 'dog'
+    // Make apple red by adding a .red class
+    // Make balloon less balloon-like
+
+    var paragraph = document.querySelectorAll('p');
+
+    //console.log('Is there any red-dot?', paragraph[2].classList.contains('red-dot'));
+
+    if (paragraph[2].classList.contains('red-dot')){
+        alert('OMG DOTS!');
+    }
+
+    if (paragraph[0].classList.contains('apple')){
+        paragraph[2].innerText = 'dog';
+    }
+
+    paragraph[0].classList.add('red');
+
+    paragraph[1].setAttribute('style', 'border-radius: 5px');
+
+
+
+
+
+//   console.log(asteroid.classList.value);
+
+//   console.log('asteroid?', asteroid.classList.contains('asteroid'));
+//   console.log('planet?', asteroid.classList.contains('planet'));
+
+//   asteroid.classList.add('new-class');
+//   asteroid.classList.remove('asteroid');
+//   console.log('still asteroid?', asteroid.classList.contains('asteroid'));
+
+
+  </script>
+ 
+</body>
+</html>
