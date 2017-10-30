@@ -55,7 +55,7 @@ class Farm {
     }
     
     breed() {
-        while (this.animals.length <= this.slot){
+        while (this.animals.length < this.slot){
             this.animals.push(new Animal());
         } 
     }
@@ -69,11 +69,11 @@ class Farm {
 
     printReport(){
         console.log('Sheeps in farm: ' + this.animals.length);
-        if (this.animals.length <= 0){
+        if (this.animals.length <= 0) {
             console.log("bankrupt - there are no more animal")
-        } else if (0 < this.animals.length <= this.slot){
+        } else if (0 < this.animals.length < this.slot) {
             console.log("okay")
-        } else if (this.animals.length > this.slot){
+        } else if (this.animals.length >= this.slot) {
             console.log("full")
         }
     }
@@ -92,16 +92,22 @@ class Farm {
                 animal.play();
             }
         }.bind(this)); 
-            
+    console.log(this.animals);     
+    this.printReport(); 
     }
 }
 
 
 const SheepFarm = new Farm(20);
 //console.log(SheepFarm.animals); // Should log 25 Animal objects
-SheepFarm.progress();
-console.log(SheepFarm.animals);
-//const button = document.querySelector('button');
+
+
+const button = document.querySelector('button');
+
+let progressButton = SheepFarm.progress.bind(SheepFarm);
+button.addEventListener('click', progressButton );
+
+
 
 // Add a click event to the button and call 'progress'
 
