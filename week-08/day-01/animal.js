@@ -61,15 +61,46 @@ class Farm {
     }
 
     slaughter(){
+        for (let i = 0; i <= this.animals.length; i++ )
+            if (this.animals[i].hunger < this.animals[i+1].hunger){
+                console.log(this.animals[i].hunger);
+        }
+    }
 
+    printReport(){
+        console.log('Sheeps in farm: ' + this.animals.length);
+        if (this.animals.length <= 0){
+            console.log("bankrupt - there are no more animal")
+        } else if (0 < this.animals.length <= this.slot){
+            console.log("okay")
+        } else if (this.animals.length > this.slot){
+            console.log("full")
+        }
+    }
+
+    progress(){
+        this.animals.forEach(function(animal) {
+            let j = Math.floor(Math.random()*3);
+
+            if (j === 0){
+                animal.eat();
+            }
+            if (j === 1){
+                animal.drink();
+            }
+            if (j == 2){
+                animal.play();
+            }
+        }.bind(this)); 
+            
     }
 }
 
 
 const SheepFarm = new Farm(20);
-
-console.log(SheepFarm.animals); // Should log 25 Animal objects
-
+//console.log(SheepFarm.animals); // Should log 25 Animal objects
+SheepFarm.progress();
+console.log(SheepFarm.animals);
 //const button = document.querySelector('button');
 
 // Add a click event to the button and call 'progress'
