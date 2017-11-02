@@ -4,7 +4,7 @@ function getNews ( callback ) {
     xhr.onreadystatechange = function() {
         if(xhr.readyState == 4) {
             let news = JSON.parse(xhr.responseText)
-            //console.log(news)
+            console.log(news)
             callback( news );
         }
     }
@@ -14,11 +14,18 @@ function getNews ( callback ) {
 function showNews(newsData) {
     let main = document.querySelector('main');
      for (let i = 0; i < newsData.response.docs.length; i++) {
-        //let div = document.createElement('div');
+        let div = document.createElement('div');
         let h1 = document.createElement('h1');
+        let p = document.createElement('p');
+        let p2 = document.createElement('p');
         h1.innerText += newsData.response.docs[i].headline.main;
-        
-        main.appendChild(h1);
+        p.innerText += newsData.response.docs[i].snippet;
+        newDate = newsData.response.docs[i].pub_date;
+        p2.innerHTML += newDate.substr(0, 9);
+        main.appendChild(div);       
+        div.appendChild(h1);
+        div.appendChild(p);
+        div.appendChild(p2);
     }
 }
 
