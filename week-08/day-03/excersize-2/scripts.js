@@ -32,6 +32,7 @@ function showNews(newsData) {
         div.appendChild(p);
         div.appendChild(p2);
         div.appendChild(link);
+        
     }
 }
 
