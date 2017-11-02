@@ -18,14 +18,20 @@ function showNews(newsData) {
         let h1 = document.createElement('h1');
         let p = document.createElement('p');
         let p2 = document.createElement('p');
+        let link = document.createElement('a');
+
         h1.innerText += newsData.response.docs[i].headline.main;
         p.innerText += newsData.response.docs[i].snippet;
         newDate = newsData.response.docs[i].pub_date;
         p2.innerHTML += newDate.substr(0, 9);
+        link.setAttribute('href', newsData.response.docs[i].web_url);
+        link.innerHTML += newsData.response.docs[i].web_url;
+
         main.appendChild(div);       
         div.appendChild(h1);
         div.appendChild(p);
         div.appendChild(p2);
+        div.appendChild(link);
     }
 }
 
