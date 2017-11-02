@@ -16,16 +16,12 @@ function getGifs ( callback ) {
 
 function showGifs( gifData) {
     let main = document.querySelector('main');
-    // let div = document.createElement('div');
-    // main.appendChild(div);
-    // let divSelected = document.querySelector('div');
     for (let i = 0; i < gifData.data.length; i++) {
         let button = document.createElement('button');
         button.setAttribute('style', 'background-image: url(' + gifData.data[i].images.original_still.url + ')');
-    // button.setAttribute()
         button.addEventListener('click', function(){
-            console.log('ok');
-    });
+            button.setAttribute('style', 'background-image: url(' + gifData.data[i].images.downsized_large.url + ')');
+        });
     main.appendChild(button);
     }
 }
