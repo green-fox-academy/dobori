@@ -1,0 +1,195 @@
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;
+  }
+
+*,
+*::before,
+*::after{
+    box-sizing: inherit;
+}
+
+body{
+    background-color: #EEE;
+    color: #B8B8B8;
+    font-family: 'Lato';
+    font-size: 1.4rem;
+    height: 100%;
+}
+
+main{
+    width: 100%;
+    margin: 0 auto;
+}
+
+header{
+    width: 100%;
+    height: 210px;
+    background-image: url(../images/bg.jpg);
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+article{
+    background-color: #F5F5F5;
+    display: flex;
+    flex-flow: row;
+    margin-top: 15px;   
+    padding: 1rem; 
+}
+section{
+    margin-left: 1rem; 
+}
+
+
+.arrows{
+    display: flex;
+    flex-flow: column;
+    flex-wrap: wrap;
+}
+
+a{
+    color: #169e4c;
+    text-decoration: none;
+    font-weight: bold;
+    margin-bottom: 1px;
+    font-size: 1.7rem;
+}
+a:visited{
+    color: #551a8b;
+}
+
+.arrowdownvote, .arrowupvote{ 
+    background: url('../images/arrow.png') no-repeat; 
+    display: inline-block; 
+    height: 15px; 
+    margin: 0px auto;
+    overflow: hidden; 
+    text-indent: -9999px; 
+    text-align: left; 
+    width: 15px; 
+}
+ 
+.arrowdownvote { 
+    background-position: -10px -10px; 
+}
+.arrowdownvote:hover, .arrowdownvote:active { 
+    background-position: -45px -10px; 
+}
+.arrowupvote { 
+    background-position: -10px -44px;
+}
+.arrowupvote:hover, .arrowupvote:active { 
+    background-position: -45px -44px; 
+}
+
+.votednumbers{
+    font-weight: bold;
+    text-align: center;
+}
+
+.dislike{
+    color: #9494FF;
+}
+
+.like{
+    color: #FF8B60;
+}
+
+.tagline{
+    font-size: x-small;
+    margin: 0;
+}
+
+.small_a{
+    color: #888;
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+/******* New post ********/
+
+#new_post{
+    width: 300px;
+    margin: 2rem;
+}
+
+h5{
+    color: black;
+    border-bottom: 3px solid #5F99CF;
+    padding-bottom: 0.5rem;
+    margin: 0 0 1rem 0;
+}
+
+.blue{
+    color: #5F99CF;
+}
+
+.yellow{
+    background-color: #F6E69F;
+    border: 1px solid #ffbd91;
+    color: #000;
+    font-size: 1rem;
+    padding: 0.5rem;
+}
+
+fieldset{
+    background-color: #CEE3F8;
+    border-radius: 2px;
+    border: 0px;
+    margin: 0.5rem 0 0 0;
+    padding: 1rem;
+    color: black;
+}
+
+
+fieldset label{
+    color: black;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+fieldset > div input[type="text"],
+fieldset > div textarea {
+    background: #ffffff;
+    border: 1px solid #444;
+    box-sizing: border-box;
+    display:block;
+    margin: 0.5rem 0 0 0; 
+    padding: 0 12px;
+    width: 100%;
+}
+
+fieldset > div[data-required] label {
+    display: inline-block;
+  }
+  
+fieldset > div[data-required] label::before {
+    position: relative;
+    content: '*';
+    right: 0;
+    top: 0;
+    color: #dc5656;
+  }
+
+fieldset input[type="checkbox"]{
+    border: 1px solid #938c97;
+    box-sizing: border-box;
+  }
+
+fieldset p{
+    font-weight: normal;
+    font-size: 1.1rem;
+    margin: 0.5rem 0 0 0;
+}
+
+input[type="submit"]{
+    color: black;
+    font-size: x-small;
+}
+
+main p{
+    font-size: x-small;
+    color: black;
+}

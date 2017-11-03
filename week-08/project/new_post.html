@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Reddit</title>
+    <meta charset="utf-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300" rel="stylesheet">    
+    <link href="css/style.css" rel="stylesheet">
+  </head>
+  <body>
+    <main id="new_post">
+       <h5>submit to <span class="blue">the page</span></h5>
+       <div class="yellow">The meaning... blalalallllalllllallalalllallala</div>
+       <form method="post" action="" enctype="multipart/form-data"></form>
+       <fieldset>
+          <div>
+          <label for="form-url">url</label>
+          <input type="text" name="url" id="form-url">
+          </div>
+       </fieldset>
+       <fieldset>
+          <div data-required>
+              <label for="form-title">title</label>
+              <textarea id="form-title" name="title" required></textarea>
+            </div>
+       </fieldset>
+       <fieldset>
+          <div>
+              <label>options</label>
+              <p>
+                <input type="checkbox" name="anonimus" value="anonimus" checked>
+                post as anonymus
+              </p>
+            </div>
+       </fieldset>
+       <p>* required</p>
+       <div>
+          <input type="submit" value="submit" name="submit" />
+       </div>
+      </form>
+    </main>
+    <script src="js/scripts.js"></script>
+  </body>
+</html>
