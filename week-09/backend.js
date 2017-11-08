@@ -25,5 +25,25 @@ app.get('/doubling', function(req, res){
     };
 });
 
+app.get('/greeter', function(req, res){
+    let nameToGreet = req.query.name;
+    let titleToGreet = req.query.title;
+    if (!nameToGreet){
+        res.json({
+            "error": "Please provide a name!"
+        });
+    } else if (!titleToGreet){
+        res.json({
+            "error": "Please provide a title!"
+        });
+    } 
+    
+    else {
+        res.json({
+            "welcome_message": "Oh, hi there " + nameToGreet + ", my dear "+ titleToGreet + "!"
+        });
+    }
+});
+
 
 app.listen(8080);
