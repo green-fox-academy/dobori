@@ -4,6 +4,8 @@ var express = require('express');
 var app = express ();
 
 express.json.type = "application/json"
+
+app.use(express.json());
 app.use('/assets', express.static('./assets'));
 
 app.get('/', function(req, res){
@@ -49,6 +51,30 @@ app.get('/appenda/:appa', function(req, res){
             "appended": req.params.appa + "a"
     });
 
+});
+
+
+app.post('/dountil/:what', function(req, res){
+    let whatToDo = req.params.what;
+    let number = req.body.until;
+
+    if (whatToDo === "sum"){
+        let summa = 0;
+        for (let i = 0; i <= number; i++){
+            summa += i; 
+        }
+        res.json({
+            "result": summa
+        });
+    } else if (whatToDo === "factor"){
+        let factor = 1;
+        for (let j = 1; j <= number; j++){
+            factor *= j; 
+        }
+        res.json({
+            "result": factor
+        });
+    }
 });
 
 
