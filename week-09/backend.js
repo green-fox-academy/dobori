@@ -36,13 +36,19 @@ app.get('/greeter', function(req, res){
         res.json({
             "error": "Please provide a title!"
         });
-    } 
-    
+    }    
     else {
         res.json({
             "welcome_message": "Oh, hi there " + nameToGreet + ", my dear "+ titleToGreet + "!"
         });
     }
+});
+
+app.get('/appenda/:appa', function(req, res){
+    res.json({
+            "appended": req.params.appa + "a"
+    });
+
 });
 
 
