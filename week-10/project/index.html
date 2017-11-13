@@ -6,10 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fox Player</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">    
+    <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">     -->
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
-    
+    <main>
+        <div id="full_player">
+            <div class="half"></div>
+            <div class="half"></div>
+            <audio controls="controls" id="audioPlayer" src="">
+                Your browser does not support the <code>audio</code> element.
+            </audio>
+            <ul id="playlist">
+                <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 1</a></li>
+                <li><a href="music/Ars_Sonor_-_02_-_Never_Give_Up.mp3" type="audio/mp3">Szam 2</a></li>
+                <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 3</a></li>
+            </ul>
+
+            <div class="control_panel"></div>
+
+        </div>
+    </main>
+    <script src="scripts/scripts.js"></script>
 </body>
 </html>
