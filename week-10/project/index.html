@@ -6,27 +6,67 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Fox Player</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet">
-    <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">     -->
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">    
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
     <main>
         <div id="full_player">
             <div class="half"></div>
-            <div class="half"></div>
-            <audio controls="controls" id="audioPlayer" src="">
+            <div class="half">
+                <ul id="playlist">
+                    <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 1</a></li>
+                    <li><a href="music/Ars_Sonor_-_02_-_Never_Give_Up.mp3" type="audio/mp3">Szam 2</a></li>
+                    <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 3</a></li>
+                </ul>         
+            </div>
+            
+            
+            <div class="control_panel">
+                <audio controls="controls" id="audioPlayer" src="">
                 Your browser does not support the <code>audio</code> element.
-            </audio>
-            <ul id="playlist">
-                <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 1</a></li>
-                <li><a href="music/Ars_Sonor_-_02_-_Never_Give_Up.mp3" type="audio/mp3">Szam 2</a></li>
-                <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 3</a></li>
-            </ul>
-
-            <div class="control_panel"></div>
+                </audio>
+                <div class="controls_plays">
+                    <button id="prev_btn"></button>
+                    <div id="plays_btn">
+                        <button id="play_btn"></button>
+                        <button id="pause_btn"></button>
+                    </div>
+                    <button id="next_btn"></button>   
+                    <p id="timeleft">00:00</p>
+                    <div class="progressbar_slide">
+                        <div class="progressbar_range"></div>
+                    </div>
+                    <p id="timelenght">00:00</p>
+                    <button id="shuffle_btn"></button> 
+                    <button id="volume_btn"></button>                 
+                </div>
+            </div>
 
         </div>
     </main>
     <script src="scripts/scripts.js"></script>
 </body>
 </html>
+
+    
+    <div class="audio-player">
+        <div class="cover-art">
+            <a href="https://soundcloud.com/arimason" target="_blank"></a>
+        </div>
+        <div class="info">
+            <h2>Ari Mason</h2>
+            <h3>Dressed For Space <span style="color: #999999; font-size: 12px;">(<a href="https://www.youtube.com/watch?v=mjwM0eIQ6Rc" target="_blank">TR/SR</a> cvr)</span></h3>
+            <p id="timeleft">00:00</p>
+            <div class="progressbar_slide">
+                <div class="progressbar_range"></div>
+            </div>
+        </div>
+        <div class="controls">
+           
+         
+    
+            </div>
+        </div>
+    
+    </div>
