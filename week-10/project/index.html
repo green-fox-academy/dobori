@@ -12,7 +12,8 @@
 <body>
     <main>
         <div id="full_player">
-            <div class="half"></div>
+            <div class="half">
+            </div>
             <div class="half">
                 <ul id="playlist">
                     <li><a href="music/Organoid_-_09_-_Purple_Drift.mp3" type="audio/mp3">Szam 1</a></li>
@@ -33,13 +34,22 @@
                         <button id="pause_btn"></button>
                     </div>
                     <button id="next_btn"></button>   
-                    <p id="timeleft">00:00</p>
+                    <p id="current_time">00:00</p>
                     <div class="progressbar_slide">
-                        <div class="progressbar_range"></div>
+                        <div class="progressbar_range">
+                            <div class="progressbar_circle"></div>
+                        </div>
                     </div>
+
                     <p id="timelenght">00:00</p>
                     <button id="shuffle_btn"></button> 
-                    <button id="volume_btn"></button>                 
+                    <button id="volume_btn"></button>  
+
+                    <div class="progressbar_slide_volume">
+                        <div class="progressbar_volume">
+                            <div class="progressbar_circle"></div>
+                        </div>
+                    </div>               
                 </div>
             </div>
 
@@ -48,25 +58,3 @@
     <script src="scripts/scripts.js"></script>
 </body>
 </html>
-
-    
-    <div class="audio-player">
-        <div class="cover-art">
-            <a href="https://soundcloud.com/arimason" target="_blank"></a>
-        </div>
-        <div class="info">
-            <h2>Ari Mason</h2>
-            <h3>Dressed For Space <span style="color: #999999; font-size: 12px;">(<a href="https://www.youtube.com/watch?v=mjwM0eIQ6Rc" target="_blank">TR/SR</a> cvr)</span></h3>
-            <p id="timeleft">00:00</p>
-            <div class="progressbar_slide">
-                <div class="progressbar_range"></div>
-            </div>
-        </div>
-        <div class="controls">
-           
-         
-    
-            </div>
-        </div>
-    
-    </div>
