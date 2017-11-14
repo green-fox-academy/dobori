@@ -59,17 +59,27 @@ audio{
 #playlist li{
     display: block;
     list-style: none;
-    padding: 1rem;
-    width: 100%;
+    cursor: pointer;
+}
+
+.current_li{
+    background-color: #abe7e5;
 }
 
 #playlist li:nth-child(odd){
     background-color: #eaeaea;
 }
 
+#playlist li:hover{
+    background-color: #abe7e5;
+}
+
 #playlist li a{
+    width: 100%;
+    display: block;
     color: #313841;
     text-decoration: none;
+    padding: 1rem;
 }
 
 .controls_plays{
@@ -94,19 +104,19 @@ button{
 }
 
 #prev_btn{
-    background-image: url(../img/rewind.svg);
+    background-image: url(../assets/rewind.svg);
 }
 
 #next_btn{
-    background-image: url(../img/forward.svg);
+    background-image: url(../assets/forward.svg);
 }
 
 #play_btn{
-    background-image: url(../img/play.svg);
+    background-image: url(../assets/play.svg);
 }
 
 #pause_btn{
-    background-image: url(../img/pause.svg);
+    background-image: url(../assets/pause.svg);
     display: none;
 }
 
@@ -121,12 +131,12 @@ button{
 }
 
 #volume_btn{
-    background-image: url(../img/volume.svg);
+    background-image: url(../assets/volume.svg);
     width: 50px;
 }
 
 #shuffle_btn{
-    background-image: url(../img/shuffle.svg);
+    background-image: url(../assets/shuffle.svg);
 }
 
 .progressbar_slide, .progressbar_slide_volume{
