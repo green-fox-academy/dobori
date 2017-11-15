@@ -51,35 +51,50 @@ audio{
     height: 100px;
 }
 
-#playlist{
+ol{
     margin: 0;
     padding: 0;
 }
 
-#playlist li{
+li{
     display: block;
-    list-style: none;
     cursor: pointer;
+    list-style: inside;
+    width: 100%;
+    display: block;
+    color: #313841;
+    text-decoration: none;
+    padding: 1rem;
 }
 
 .current_li{
     background-color: #abe7e5;
 }
 
-#playlist li:nth-child(odd){
+ol li:nth-child(odd){
     background-color: #eaeaea;
 }
 
-#playlist li:hover{
+ol li:hover{
     background-color: #abe7e5;
 }
 
-#playlist li a{
-    width: 100%;
+#playlist li{
     display: block;
-    color: #313841;
-    text-decoration: none;
     padding: 1rem;
+    width: 100%;
+}
+
+.header{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 135px;
+    width: 100%;
+}
+
+h4{
+    width: 100%;
 }
 
 .controls_plays{
@@ -121,7 +136,7 @@ button{
 }
 
 
-#volume_btn, #shuffle_btn, #playlist_btn{
+#volume_btn, #shuffle_btn, #tracklist_btn{
     background-position: center center;
     background-repeat: no-repeat;
     background-color: #fff;

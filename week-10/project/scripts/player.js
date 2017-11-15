@@ -1,7 +1,6 @@
 'use strict'
 
 var audioPlayer = document.querySelector("#audioPlayer");
-var track = document.querySelectorAll("a");
 var playsButton = document.querySelector('#plays_btn');
 var playButton = document.querySelector('#play_btn');   
 var pauseButton = document.querySelector('#pause_btn');
@@ -12,22 +11,15 @@ var currentTimeDisplay = document.querySelector('#current_time');
 var durationDisplay = document.querySelector('#timelenght');
 
 
-function audioListPlay(){
+const audioListPlay = function(trackId){
+    
+    var track = document.querySelectorAll("#tracklist li");
     let currentSong = 0;
-
-        audioPlayer.src = track[0].href;
-        track[0].setAttribute('class', 'current_li');
-
-        track.forEach(function(element){
-            
-            element.addEventListener('click', function(e){
-                element.setAttribute('class', 'current_li');
-                e.preventDefault(); 
-                audioPlayer.src = this;
-                audioPlayer.play();
-                
-            });
-        });
+    
+    audioPlayer.src = track[trackId].dataset.url;
+    track[0].setAttribute('class', 'current_li');
+    audioPlayer.play();   
+    
 }
 
 
@@ -102,4 +94,3 @@ audioPlayer.addEventListener("timeupdate", function() {
 //updateVolume();
 
 
-audioListPlay();

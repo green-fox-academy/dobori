@@ -11,24 +11,29 @@ app.use('/css', express.static('./css'));
 app.use('/music', express.static('./music'));
 app.use('/scripts', express.static('./scripts'));
 
+var playLists = [
+	{ "id": 1, "title": "Favorites", "system": 1},
+	{ "id": 2, "title": "Music for programming", "system": 0},
+	{ "id": 3, "title": "Driving", "system": 0},
+	{ "id": 5, "title": "Fox house", "system": 0},
+]
+
+var tracks =[
+    { "id": 21, "title": "Halahula", "artist": "Untitled artist", "duration": 545, "path": "music/Ars_Sonor_-_02_-_Never_Give_Up.mp3" },
+    { "id": 412, "title": "No sleep till Brooklyn", "artist": "Beastie Boys", "duration": 312.12, "path": "music/Organoid_-_09_-_Purple_Drift.mp3" }
+]
 
 
 app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/foxplayer', function(req, res){
+app.get('/playlists', function(req, res){
+    res.json(playLists);   
+});
 
-    var datas = {
-        "album": [
-          { "track": "John", "src":"Ars_Sonor_-_02_-_Never_Give_Up.mp3"},
-          { "track": "Paul", "src":"Organoid_-_09_-_Purple_Drift.mp3"},
-          { "track": "George", "src":"Organoid_-_09_-_Purple_Drift.mp3"},
-          { "track": "Ringo","src":"Ars_Sonor_-_02_-_Never_Give_Up.mp3"}
-        ]
-       }
-
-        res.json(datas); 
-    });
+app.get('/playlist-tracks', function(req, res){
+    res.json(tracks); 
+});
 
 app.listen(8080);
