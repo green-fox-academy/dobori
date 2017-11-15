@@ -13,7 +13,7 @@ var durationDisplay = document.querySelector('#timelenght');
 
 const audioListPlay = function(trackId){
     
-    var track = document.querySelectorAll("#tracklist li");
+    let track = document.querySelectorAll("#tracklist li");
     let currentSong = 0;
     
     audioPlayer.src = track[trackId].dataset.url;

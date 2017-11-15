@@ -46,10 +46,11 @@ const renderTrackList = function(tracks) {
 
 
 const renderPlayList = function(playList) {  
+    console.log(playList)
     var playListShow = document.querySelector('#playlist')
     playList.forEach( oneList => {
         let li = document.createElement('li');
-            li.innerHTML =  oneList.title;
+            li.innerHTML =  oneList.playlist_title;
         playListShow.appendChild(li);
     });
 }
