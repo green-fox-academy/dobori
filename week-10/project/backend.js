@@ -44,14 +44,7 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
-app.get('/playlists', function(req, res){
-
-    // if (!req.query.category){ 
-    //     var addToSelect= "";
-    // } else {
-    //     let categoryName = req.query.category;
-    //     addToSelect= "WHERE category.cate_descrip = \'" + categoryName + "\'";
-    // };
+app.get('/playlists/', function(req, res){
 
     const playList = connection.query(`SELECT playlist_title, system FROM Playlists`, 
 
@@ -63,13 +56,29 @@ app.get('/playlists', function(req, res){
     });   
 });
 
-app.get('/playlist-tracks', function(req, res){
-    const tracks = connection.query(`SELECT path, playlist_id, title, artist FROM Tracks`, 
+
+
+app.get('/playlist-tracks/', function(req, res){
+
+    var tracks = connection.query(`SELECT tracks.path, tracks.title, tracks.artist, playlist_id FROM tracks`, 
     
-        function(err, tracks){
-            if(err){
-                console.log("Something went wrong");
-            }
+    function(err, tracks){
+        if(err){
+            console.log("Something went wrong");
+        }
+            res.send(tracks); 
+        });
+});
+
+app.get('/playlist-tracks/:id', function(req, res){
+    var id = req.params.id;
+    console.log(id)
+    var tracks = connection.query(`SELECT path, title, artist, playlist_id FROM tracks WHERE tracks.playlist_id = ${id}`, 
+    
+    function(err, tracks){
+        if(err){
+            console.log("Something went wrong");
+        }
             res.send(tracks); 
         });
 });

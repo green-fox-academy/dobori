@@ -15,9 +15,8 @@ const audioListPlay = function(trackId){
     
     let track = document.querySelectorAll("#tracklist li");
     let currentSong = 0;
-    
     audioPlayer.src = track[trackId].dataset.url;
-    track[0].setAttribute('class', 'current_li');
+    track[trackId].setAttribute('class', 'current_li');
     audioPlayer.play();   
     
 }
@@ -39,7 +38,7 @@ playsButton.addEventListener("click", function() {
 //Next Button
 
 
-nextBtn.addEventListener("click", function(){
+nextBtn.addEventListener("click", function(trackId){
 
 
 });
