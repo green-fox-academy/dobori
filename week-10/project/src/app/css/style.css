@@ -35,6 +35,10 @@ p{
     width: 700px;
 }
 
+#full_wrapper{
+    width: 100%;
+}
+
 .half{
     width: 50%;
 }
@@ -51,7 +55,7 @@ audio{
     height: 100px;
 }
 
-ol{
+ul{
     margin: 0;
     padding: 0;
 }
@@ -71,11 +75,11 @@ li{
     background-color: #abe7e5;
 }
 
-ol li:nth-child(odd){
+ul li:nth-child(odd){
     background-color: #eaeaea;
 }
 
-ol li:hover{
+ul li:hover{
     background-color: #abe7e5;
 }
 
@@ -118,7 +122,7 @@ button{
     transition: all 0.2s;
 }
 
-#prev_btn{
+/* #prev_btn{
     background-image: url(../assets/rewind.svg);
 }
 
@@ -133,7 +137,7 @@ button{
 #pause_btn{
     background-image: url(../assets/pause.svg);
     display: none;
-}
+} */
 
 
 #volume_btn, #shuffle_btn, #tracklist_btn{
@@ -145,14 +149,14 @@ button{
     transition: all 0.2s;
 }
 
-#volume_btn{
+/* #volume_btn{
     background-image: url(../assets/volume.svg);
     width: 50px;
-}
+} */
 
-#shuffle_btn{
+/* #shuffle_btn{
     background-image: url(../assets/shuffle.svg);
-}
+} */
 
 .progressbar_slide, .progressbar_slide_volume{
     width: 100%;
