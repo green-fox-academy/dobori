@@ -1,6 +1,7 @@
 'use strict';
 
 var React = require('react');
+require('./css/listitems.css');
 
 
 class MyPlayListItem extends React.Component{

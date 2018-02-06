@@ -1,0 +1,51 @@
+ul{
+    margin: 0;
+    padding: 0;
+}
+
+li{
+    display: block;
+    cursor: pointer;
+    list-style: inside;
+    width: 100%;
+    display: block;
+    color: #313841;
+    text-decoration: none;
+    padding: 1rem;
+}
+
+.current-li{
+    background-color: #abe7e5;
+}
+
+ul li:nth-child(odd){
+    background-color: #eaeaea;
+}
+
+ul li:hover{
+    background-color: #abe7e5;
+}
+
+#playlist li{
+    display: block;
+    padding: 1rem;
+    width: 100%;
+}
+
+.myplaylist-item{
+    display: flex;
+}
+
+.item-name{
+    flex-basis: 0;
+    flex-grow: 9;
+  }
+  
+.item-remove{
+    flex-basis: 0;
+    flex-grow: 1;
+    text-align: right;
+    color: #7f4cc1;
+    font-weight: bold;
+    cursor: pointer;
+}
