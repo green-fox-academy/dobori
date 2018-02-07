@@ -1,12 +1,16 @@
 {
-  "name": "week-10",
-  "version": "1.0.0",
+  "name": "foxplayer",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "npm run build",
+    "dev": "npm-run-all --parallel dev:react",
+    "dev:react": "webpack --watch",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npm run build",
-    "build": "webpack -d && webpack-dev-server --content-base src/ --inline --port 8080 --history-api-fallback"
+    "start": "node server.js",
+    "build": "npm-run-all --parallel build:react",
+    "build:react": "webpack -d"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +30,7 @@
     "css-loader": "^0.28.9",
     "install": "^0.10.4",
     "npm": "^5.6.0",
+    "npm-run-all": "^4.1.2",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "style-loader": "^0.20.1",
