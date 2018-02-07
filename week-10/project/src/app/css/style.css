@@ -43,6 +43,19 @@ p{
     width: 50%;
 }
 
+.swal-overlay {
+    background-color: #a1f8f556;
+}
+
+.swal-button {
+    padding: 7px 19px;
+    border-radius: 2px;
+    background-color: #549b98;
+    font-size: 12px;
+    border: 1px solid #549b98;
+    text-shadow: 0px -1px 0px rgba(0, 0, 0, 0.3);
+}
+
 .control_panel{
     display: flex;
     flex-flow: row;

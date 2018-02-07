@@ -1,10 +1,11 @@
 'use strict';
 
-var React = require('react');
+import React from 'react';
 var ReactDOM = require('react-dom');
 var MyPlayListItem = require('./playlistitem');
 var AddItem = require('./additem');
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import swal from 'sweetalert';
 require('./css/style.css');
 
 // { "id": 2, "title": "Music for programming", "system": 0},
@@ -45,21 +46,60 @@ class MusicPlayer extends React.Component{
     }
 
     onDelete(item){
-        console.log(this.state.myPlayList)
-        var updatedPlayList = this.state.myPlayList.filter(function(val, index){
-            return item !== val.title;
-        });
-        this.setState({
-            myPlayList: updatedPlayList
+        swal({
+            title: 'Are you sure you want to delete this playlist?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((isDeleted) => {
+            if (isDeleted) {
+                var updatedPlayList = this.state.myPlayList.filter(function(val, index){
+                    return item !== val.title;
+                });
+                this.setState({
+                    myPlayList: updatedPlayList
+                });
+                swal('Your playlist has been deleted!', {
+                    icon: 'success',
+                    timer: 1600,
+                    buttons: false,
+                });
+            } else {
+                swal({
+                    text: 'Your playlist is in safe!',
+                    timer: 1600,
+                    buttons: false,
+                });
+            }
         });
     }
 
-    onAdd(item){
-        var updatedPlayList = this.state.myPlayList;
-        updatedPlayList.push({"id": 8, "title": item, "system": 0});
-        this.setState({
-            myPlayList: updatedPlayList
+    onAdd(){
+        swal({
+            text: "Add new playlist:",
+            content: "input",
+            closeModal: false,
+            placeholder: "Write here a playlist name",
+        })
+        .then((inputValue) => {
+            if (inputValue === false) return false;
+            
+            if (inputValue === "") {
+                swal({
+                    text:"You did not write anything, I will close this window",
+                    buttons: false,
+                    timer: 2000,
+                });
+                return false
+            }
+            
+            var updatedPlayList = this.state.myPlayList;
+            updatedPlayList.push({"id": 8, "title": inputValue, "system": 0});
+            this.setState({
+                myPlayList: updatedPlayList
+            });
         });
+          
     }
   
     render(){
@@ -79,9 +119,10 @@ class MusicPlayer extends React.Component{
                 <div className="half">
                     <div className="header">
                         <h4>Playlists</h4>
+                        <button onClick={this.onAdd}>Add playlist</button>
                     </div>
                     <ul id="playlist">{myPlayList}</ul>
-                    <AddItem onAdd={this.onAdd}/>
+                    
                 </div>
                 <div className="half">
                     <ul id="tracklist">{myTrackList}</ul> 
