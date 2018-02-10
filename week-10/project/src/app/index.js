@@ -4,13 +4,22 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MyPlayListItem from './playlistitem';
 import AddItem from './additem';
+import AudioPlayer from 'react-responsive-audio-player';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import swal from 'sweetalert';
 require('./css/style.css');
+require('./css/player.css');
 
 
 const playListUrl = "http://localhost:8080/playlists";
 const trackListUrl = "http://localhost:8080/playlist-tracks";
+
+var playlist =
+  [{ url: 'music/05.mp3',
+     displayText: 'Track 1 by Some Artist' },
+   { url: 'audio/track2.mp3',
+     displayText: 'Some Other Artist - Track 2' }];
+
 
 class App extends React.Component{
     render(){
@@ -28,10 +37,12 @@ class App extends React.Component{
 class MusicPlayer extends React.Component{
     constructor(props){
         super(props);
+        
         this.state = { 
             myPlayList: [],
-            myTrackList: []
-            };
+            myTrackList: [],
+        };
+        console.log(this.state)
         this.onDelete = this.onDelete.bind(this);
         this.onAdd = this.onAdd.bind(this);
     }
@@ -108,7 +119,7 @@ class MusicPlayer extends React.Component{
         });
           
     }
-  
+      
     render(){
         var myPlayList = this.state.myPlayList;
         myPlayList = myPlayList.map(function(item, index){
@@ -120,7 +131,6 @@ class MusicPlayer extends React.Component{
             return(<MyPlayListItem key={index} item={item.title} onDelete={this.onDelete}/>
             );
         }.bind(this));
-
         return(
             <div id="full-wrapper">
                 <div className="half">
@@ -134,6 +144,7 @@ class MusicPlayer extends React.Component{
                 <div className="half">
                     <ul id="tracklist">{myTrackList}</ul> 
                 </div>
+                <AudioPlayer playlist={playlist} autoplay={false} autoplayDelayInSeconds={2.1} controls={['backskip', 'playpause', 'forwardskip', 'progress']}/>
             </div>
         );
     }

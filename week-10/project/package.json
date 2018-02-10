@@ -22,8 +22,11 @@
     "express": "^4.16.2",
     "mustache": "^2.3.0",
     "mysql": "^2.15.0",
+    "prop-types": "^15.6.0",
     "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react-cl-audio-player": "^2.0.0",
+    "react-dom": "^16.2.0",
+    "react-responsive-audio-player": "^1.2.0"
   },
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
@@ -31,8 +34,10 @@
     "install": "^0.10.4",
     "npm": "^5.6.0",
     "npm-run-all": "^4.1.2",
+    "react-audioplayer": "^0.3.1",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
+    "react-soundplayer": "^1.0.4",
     "style-loader": "^0.20.1",
     "sweetalert": "^2.1.0",
     "webpack": "^3.10.0",
