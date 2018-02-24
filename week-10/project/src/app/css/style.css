@@ -43,6 +43,16 @@ p{
     width: 50%;
 }
 
+.half:first-child{
+    border-right: 1px solid rgb(196, 196, 196);
+}
+
+.header{
+    background-color:  #549b98;
+    display: flex;
+    flex-flow: row;
+    width: 100%;
+}
 .swal-overlay {
     background-color: #a1f8f556;
 }
@@ -64,25 +74,38 @@ p{
 }
 
 audio{
-    width: 100%;
+    width: 600px;
     height: 100px;
 }
 
-
-
-.header{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    height: 135px;
-    width: 100%;
-}
-
 h4{
-    width: 100%;
+    margin: 0;
+    padding: 20px 10px;
 }
 
-button{
+button.plus{
+    background-color: transparent;
+    background-size: 50%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-image: url(/assets/plus.svg);
     border: 0;
+    font-weight: bold;
+    width: 60px;
+    height: 57px;
+    transition: 0.5s;
+}
+
+button.plus:hover{
+    background-color: #ddc3ff;
+}
+
+#picture{
+    background-image: url(/assets/music-placeholder.png);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100px; 
+    width: 100px;
 }
 

@@ -111,8 +111,9 @@
 .audio_player {
   display: flex;
   flex-direction: row;
-  height: 50px;
-  width: 100%;
+  height: 100px;
+  width: 600px;
+  background-color: #cdebea;
 }
 
 .audio_player .spacer {

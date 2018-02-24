@@ -7,6 +7,7 @@ import MyTrackListItem from './tracklistitem';
 import AudioPlayer from 'react-responsive-audio-player';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import swal from 'sweetalert';
+import { onPlayListClick } from './functions';
 
 require('./css/style.css');
 require('./css/player.css');
@@ -81,7 +82,7 @@ class MusicPlayer extends React.Component{
             });  
         } 
     }
-    
+
     onTrackListClick(item){
         var selectedTrack = this.state.myTrackList.filter(function(val, index){
             return item === val.displayText;
@@ -96,15 +97,16 @@ class MusicPlayer extends React.Component{
         jsmediatags.read(currentUrl, {
             onSuccess: function(tag) {
                 var currentImage = tag.tags.picture;
+                console.log(currentImage)
                 if (currentImage) {
                     var base64String = "";
                     for (var i = 0; i < currentImage.data.length; i++) {
                         base64String += String.fromCharCode(currentImage.data[i]);
                     }
-                    var base64 = "data:" + currentImage.format + ";base64," + window.btoa(base64String);
-                    document.getElementById('picture').setAttribute('style','background-image: url(' + base64 + '); height: 50px; width: 100%;')
+                    var base64 = "data:" + currentImage.format + "; base64," + window.btoa(base64String);
+                    document.getElementById('picture').setAttribute('style','background-image: url(' + base64 + ');')
                 } else {
-                    console.log("there is no picture")
+                    document.getElementById('picture').setAttribute('style','background-image: url(./assets/music-placeholder.png)')
                 }
             },
             onError: function(error) {
@@ -192,16 +194,19 @@ class MusicPlayer extends React.Component{
             <div id="full-wrapper">
                 <div className="half">
                     <div className="header">
-                        <h4>Playlists</h4>
-                        <button onClick={this.onAdd}>Add playlist</button>
+                        <h4>My playlists</h4>
+                        <button onClick={this.onAdd} className="plus"></button>
                     </div>
                     <ul id="playlist">{myPlayList}</ul>
                     
                 </div>
                 <div className="half">
-                    <div id="picture"></div>
+                    <div className="header">
+                        <h4>My tracks</h4>
+                    </div>
                     <ul id="tracklist">{myTrackList}</ul> 
                 </div>
+                <div id="picture"></div>
                 <AudioPlayer playlist={myTrack} autoplay={true} autoplayDelayInSeconds={1} controls={['backskip', 'playpause', 'forwardskip', 'progress']}/>
             </div>
         );

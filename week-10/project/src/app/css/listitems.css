@@ -1,5 +1,5 @@
 #playlist{
-    height: 216px;
+    height: 245px;
     overflow: auto;
 }
 
@@ -32,6 +32,7 @@ ul li:hover{
 }
 
 #playlist li{
+    transition: 0.5s;
     display: block;
     padding: 1rem;
     width: 100%;
@@ -53,4 +54,15 @@ ul li:hover{
     color: #7f4cc1;
     font-weight: bold;
     cursor: pointer;
+}
+
+#tracklist{
+    overflow: auto;
+}
+
+#tracklist li{
+    transition: 0.5s;
+    display: block;
+    padding: 1rem;
+    width: 100%;
 }
