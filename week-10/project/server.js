@@ -9,6 +9,7 @@ app.use(express.json());
 
 app.use('/dist', express.static('./dist'));
 app.use('/music', express.static('./music'));
+app.use('/assets', express.static('./assets'));
 
 var connection = mysql.createConnection({
     host: "localhost",
@@ -65,6 +66,32 @@ app.get('/playlist-tracks/:id', function(req, res){
             res.send(tracks); 
         });
 });
+
+app.post('/saveplaylist/:playlistname', function(req, res) {
+    var newPlayList = JSON.stringify(req.params.playlistname);
+    var add = connection.query(`INSERT INTO playlists (playlist_title, system) VALUES (${newPlayList}, 0)`,
+    function(err, add){
+        if(err){
+            console.log("Something went wrong");
+        } 
+            res.send("playlistitem: " + newPlayList);
+    });
+
+});
+
+app.delete('/deleteplaylist/:playlistname', function(req, res) {
+    var deletePlayList = JSON.stringify(req.params.playlistname);
+    console.log(deletePlayList)
+    var deleted = connection.query(`DELETE FROM playlists WHERE playlist_title=${deletePlayList} LIMIT 1`,
+    function(err, deleted){
+        if(err){
+            console.log("Something went wrong");
+        } 
+            res.send("Deleted: " + deletePlayList);
+    });
+
+});
+
 
 app.listen(8080);
 
