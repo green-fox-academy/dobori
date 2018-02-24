@@ -16,12 +16,15 @@ module.exports = {
                 loader: 'babel-loader',
                 query: {
                     presets: ['react', 'es2017']
-                }
+                },
             },
             {
                 test: /\.css$/,
                 loader: 'style-loader!css-loader'
             }
         ]
-    }
+    },
+    node: {
+        fs: 'empty',
+    },
 };

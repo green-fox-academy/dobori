@@ -31,7 +31,7 @@ app.get('/', function(req, res){
 
 app.get('/playlists/', function(req, res){
 
-    const playList = connection.query(`SELECT playlist_title, system FROM Playlists`, 
+    const playList = connection.query(`SELECT playlist_id, playlist_title, system FROM Playlists`, 
 
     function(err, playList){
         if(err){

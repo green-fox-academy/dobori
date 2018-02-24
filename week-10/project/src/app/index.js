@@ -3,23 +3,19 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import MyPlayListItem from './playlistitem';
-import AddItem from './additem';
+import MyTrackListItem from './tracklistitem';
 import AudioPlayer from 'react-responsive-audio-player';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import swal from 'sweetalert';
+
 require('./css/style.css');
 require('./css/player.css');
 
+var jsmediatags = require('jsmediatags');
+
 
 const playListUrl = "http://localhost:8080/playlists";
-const trackListUrl = "http://localhost:8080/playlist-tracks";
-
-var playlist =
-  [{ url: 'music/05.mp3',
-     displayText: 'Track 1 by Some Artist' },
-   { url: 'audio/track2.mp3',
-     displayText: 'Some Other Artist - Track 2' }];
-
+const trackListUrl = "http://localhost:8080/playlist-tracks/";
 
 class App extends React.Component{
     render(){
@@ -27,7 +23,6 @@ class App extends React.Component{
             <Router>
                 <Switch>
                     <Route exact={true} path={'/'} component={MusicPlayer} />
-                    <Route path={'/about'} component={AddItem} />
                 </Switch>
             </Router>
         );
@@ -36,15 +31,17 @@ class App extends React.Component{
 
 class MusicPlayer extends React.Component{
     constructor(props){
-        super(props);
-        
+        super(props);    
         this.state = { 
             myPlayList: [],
             myTrackList: [],
+            currentTrack: [],
         };
-        console.log(this.state)
         this.onDelete = this.onDelete.bind(this);
         this.onAdd = this.onAdd.bind(this);
+        this.onPlayListClick = this.onPlayListClick.bind(this);
+        this.onTrackListClick = this.onTrackListClick.bind(this);
+        this.makeDataForUse = this.makeDataForUse.bind(this);
     }
         
     componentDidMount(){
@@ -56,11 +53,65 @@ class MusicPlayer extends React.Component{
         })
         fetch(trackListUrl).then( trackdata => trackdata.json())        
         .then(trackdata => {
-            console.log(trackdata)
-            this.setState({
-                myTrackList: trackdata
-            })
+            this.makeDataForUse(trackdata) 
         })
+    }
+
+    makeDataForUse(trackdata){
+        var makeTrackData = [];
+        for (var i = 0; i < trackdata.length; i++) {
+            makeTrackData.push({url: trackdata[i].path, displayText: trackdata[i].artist + " - " + trackdata[i].title, playlist_id: trackdata[i].playlist_id})
+        }
+        this.setState({
+            myTrackList: makeTrackData
+        })
+    }
+
+    onPlayListClick(item){   
+        var selectedPlaylist = this.state.myPlayList.filter(function(val){
+            return item === val.playlist_title;
+        });
+        if (selectedPlaylist[0].playlist_id === 0){
+            this.componentDidMount()
+        } else {
+            fetch(trackListUrl + selectedPlaylist[0].playlist_id)
+            .then( data => data.json())        
+            .then( data => {
+                this.makeDataForUse(data) 
+            });  
+        } 
+    }
+    
+    onTrackListClick(item){
+        var selectedTrack = this.state.myTrackList.filter(function(val, index){
+            return item === val.displayText;
+        });
+
+        this.setState({
+            currentTrack: selectedTrack,
+        })
+
+        let currentUrl = "http://localhost:8080/" + selectedTrack[0].url;
+
+        jsmediatags.read(currentUrl, {
+            onSuccess: function(tag) {
+                var currentImage = tag.tags.picture;
+                if (currentImage) {
+                    var base64String = "";
+                    for (var i = 0; i < currentImage.data.length; i++) {
+                        base64String += String.fromCharCode(currentImage.data[i]);
+                    }
+                    var base64 = "data:" + currentImage.format + ";base64," + window.btoa(base64String);
+                    document.getElementById('picture').setAttribute('style','background-image: url(' + base64 + '); height: 50px; width: 100%;')
+                } else {
+                    console.log("there is no picture")
+                }
+            },
+            onError: function(error) {
+              console.log(':(', error.type, error.info);
+            }
+        });
+     
     }
 
     onDelete(item){
@@ -123,14 +174,20 @@ class MusicPlayer extends React.Component{
     render(){
         var myPlayList = this.state.myPlayList;
         myPlayList = myPlayList.map(function(item, index){
-            return(<MyPlayListItem key={index} item={item.playlist_title} onDelete={this.onDelete}/>
+            return(<MyPlayListItem key={index} item={item.playlist_title} onDelete={this.onDelete} onPlayListClick={this.onPlayListClick}/>
             );
         }.bind(this));
         var myTrackList = this.state.myTrackList;
         myTrackList = myTrackList.map(function(item, index){
-            return(<MyPlayListItem key={index} item={item.title} onDelete={this.onDelete}/>
+            return(<MyTrackListItem key={index} item={item.displayText} onDelete={this.onDelete} onTrackListClick={this.onTrackListClick}/>
             );
         }.bind(this));
+        let myTrack = []; 
+        if (this.state.currentTrack.length === 0){
+            myTrack = this.state.myTrackList;
+        } else {
+            myTrack = this.state.currentTrack;
+        }
         return(
             <div id="full-wrapper">
                 <div className="half">
@@ -142,9 +199,10 @@ class MusicPlayer extends React.Component{
                     
                 </div>
                 <div className="half">
+                    <div id="picture"></div>
                     <ul id="tracklist">{myTrackList}</ul> 
                 </div>
-                <AudioPlayer playlist={playlist} autoplay={false} autoplayDelayInSeconds={2.1} controls={['backskip', 'playpause', 'forwardskip', 'progress']}/>
+                <AudioPlayer playlist={myTrack} autoplay={true} autoplayDelayInSeconds={1} controls={['backskip', 'playpause', 'forwardskip', 'progress']}/>
             </div>
         );
     }
