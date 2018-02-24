@@ -5529,6 +5529,7 @@ __webpack_require__(95);
 
 var jsmediatags = __webpack_require__(97);
 
+const url = "http://localhost:8080/";
 const playListUrl = "http://localhost:8080/playlists";
 const trackListUrl = "http://localhost:8080/playlist-tracks/";
 
@@ -5635,12 +5636,16 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
             dangerMode: true
         }).then(isDeleted => {
             if (isDeleted) {
-                var updatedPlayList = this.state.myPlayList.filter(function (val, index) {
-                    return item !== val.playlist_title;
+
+                fetch(url + "deleteplaylist/" + item, {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        playlistname: item
+                    })
+                }).then(response => {
+                    this.componentDidMount();
                 });
-                this.setState({
-                    myPlayList: updatedPlayList
-                });
+
                 __WEBPACK_IMPORTED_MODULE_6_sweetalert___default()('Your playlist has been deleted!', {
                     icon: 'success',
                     timer: 1600,
@@ -5674,10 +5679,13 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
                 return false;
             }
 
-            var updatedPlayList = this.state.myPlayList;
-            updatedPlayList.push({ "id": 8, "playlist_title": inputValue, "system": 0 });
-            this.setState({
-                myPlayList: updatedPlayList
+            fetch(url + "saveplaylist/" + inputValue, {
+                method: "POST",
+                body: JSON.stringify({
+                    playlistname: inputValue
+                })
+            }).then(response => {
+                this.componentDidMount();
             });
         });
     }
