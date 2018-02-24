@@ -5511,9 +5511,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_dom__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_sweetalert___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_sweetalert__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__functions__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__functions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__functions__);
-
 
 
 
@@ -5527,11 +5524,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __webpack_require__(93);
 __webpack_require__(95);
 
-var jsmediatags = __webpack_require__(97);
-
+const jsmediatags = __webpack_require__(97);
 const url = "http://localhost:8080/";
-const playListUrl = "http://localhost:8080/playlists";
-const trackListUrl = "http://localhost:8080/playlist-tracks/";
 
 class App extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     render() {
@@ -5556,6 +5550,7 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
             currentTrack: []
         };
         this.onDelete = this.onDelete.bind(this);
+        this.onDeleteTrack = this.onDeleteTrack.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onPlayListClick = this.onPlayListClick.bind(this);
         this.onTrackListClick = this.onTrackListClick.bind(this);
@@ -5563,12 +5558,12 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
     }
 
     componentDidMount() {
-        fetch(playListUrl).then(data => data.json()).then(data => {
+        fetch(url + "playlists/").then(data => data.json()).then(data => {
             this.setState({
                 myPlayList: data
             });
         });
-        fetch(trackListUrl).then(trackdata => trackdata.json()).then(trackdata => {
+        fetch(url + "playlist-tracks/").then(trackdata => trackdata.json()).then(trackdata => {
             this.makeDataForUse(trackdata);
         });
     }
@@ -5590,7 +5585,7 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
         if (selectedPlaylist[0].playlist_id === 0) {
             this.componentDidMount();
         } else {
-            fetch(trackListUrl + selectedPlaylist[0].playlist_id).then(data => data.json()).then(data => {
+            fetch(url + "playlist-tracks/" + selectedPlaylist[0].playlist_id).then(data => data.json()).then(data => {
                 this.makeDataForUse(data);
             });
         }
@@ -5605,7 +5600,7 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
             currentTrack: selectedTrack
         });
 
-        let currentUrl = "http://localhost:8080/" + selectedTrack[0].url;
+        let currentUrl = url + selectedTrack[0].url;
 
         jsmediatags.read(currentUrl, {
             onSuccess: function (tag) {
@@ -5661,6 +5656,40 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
         });
     }
 
+    onDeleteTrack(item) {
+        __WEBPACK_IMPORTED_MODULE_6_sweetalert___default()({
+            title: 'Are you sure you want to delete this track?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true
+        }).then(isDeleted => {
+            if (isDeleted) {
+                var itemArray = item.split(' - ');
+                fetch(url + "deletetrack?artist=" + itemArray[0] + "&title=" + itemArray[1], {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        artistName: itemArray[0],
+                        trackName: itemArray[1]
+                    })
+                }).then(response => {
+                    this.componentDidMount();
+                });
+
+                __WEBPACK_IMPORTED_MODULE_6_sweetalert___default()('Your track has been deleted!', {
+                    icon: 'success',
+                    timer: 1600,
+                    buttons: false
+                });
+            } else {
+                __WEBPACK_IMPORTED_MODULE_6_sweetalert___default()({
+                    text: 'Your track is in safe!',
+                    timer: 1600,
+                    buttons: false
+                });
+            }
+        });
+    }
+
     onAdd() {
         __WEBPACK_IMPORTED_MODULE_6_sweetalert___default()({
             text: "Add new playlist:",
@@ -5697,7 +5726,7 @@ class MusicPlayer extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Componen
         }.bind(this));
         var myTrackList = this.state.myTrackList;
         myTrackList = myTrackList.map(function (item, index) {
-            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__tracklistitem___default.a, { key: index, item: item.displayText, onDelete: this.onDelete, onTrackListClick: this.onTrackListClick });
+            return __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_3__tracklistitem___default.a, { key: index, item: item.displayText, onDeleteTrack: this.onDeleteTrack, onTrackListClick: this.onTrackListClick });
         }.bind(this));
         let myTrack = [];
         if (this.state.currentTrack.length === 0) {
@@ -23216,6 +23245,11 @@ class MyTrackListItem extends React.Component {
     constructor(props) {
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleDelete() {
+        this.props.onDeleteTrack(this.props.item);
     }
 
     handleClick() {
@@ -23233,6 +23267,11 @@ class MyTrackListItem extends React.Component {
                     'span',
                     { className: 'item-name', onClick: this.handleClick },
                     this.props.item
+                ),
+                React.createElement(
+                    'span',
+                    { className: 'item-remove', onClick: this.handleDelete },
+                    ' x '
                 )
             )
         );
@@ -28059,7 +28098,7 @@ exports = module.exports = __webpack_require__(17)(false);
 
 
 // module
-exports.push([module.i, "@-webkit-keyframes marquee1 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-100%);\r\n    transform: translateX(-100%); } \r\n}\r\n  \r\n@keyframes marquee1 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-100%);\r\n    transform: translateX(-100%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee2 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-200%);\r\n    transform: translateX(-200%); } \r\n}\r\n  \r\n@keyframes marquee2 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-200%);\r\n    transform: translateX(-200%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee3 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-300%);\r\n    transform: translateX(-300%); } \r\n}\r\n  \r\n@keyframes marquee3 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-300%);\r\n    transform: translateX(-300%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee4 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-400%);\r\n    transform: translateX(-400%); } \r\n}\r\n  \r\n@keyframes marquee4 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-400%);\r\n    transform: translateX(-400%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee5 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-500%);\r\n    transform: translateX(-500%); } \r\n}\r\n  \r\n@keyframes marquee5 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-500%);\r\n    transform: translateX(-500%); } \r\n}\r\n  \r\n  .noselect {\r\n    cursor: default;\r\n    /* http://stackoverflow.com/a/4407335/4956731 */\r\n    -webkit-touch-callout: none;\r\n    /* iOS Safari */\r\n    -webkit-user-select: none;\r\n    /* Chrome/Safari/Opera */\r\n    /* Konqueror */\r\n    -moz-user-select: none;\r\n    /* Firefox */\r\n    -ms-user-select: none;\r\n    /* IE/Edge */\r\n    user-select: none;\r\n    /* non-prefixed version, currently\r\n                                    not supported by any browser */ }\r\n  \r\n.hidden {\r\n  display: none !important; \r\n}\r\n  \r\n.audio_player {\r\n  display: flex;\r\n  flex-direction: row;\r\n  height: 100px;\r\n  width: 600px;\r\n  background-color: #cdebea;\r\n}\r\n\r\n.audio_player .spacer {\r\n  width: 10px; \r\n}\r\n\r\n.audio_player .audio_progress_container {\r\n  position: relative;\r\n  height: 100%;\r\n  -webkit-box-flex: 1;\r\n  flex-grow: 1; \r\n}\r\n    \r\n.audio_player .audio_progress {\r\n  border-radius: 3px;\r\n  background-image: linear-gradient(to left, #3cd2ce, #4bbad6);\r\n  height: 10px;\r\n  width: 0;\r\n  will-change: width; \r\n}\r\n\r\n.audio_player .audio_progress_overlay {\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between; \r\n}\r\n\r\n.audio_player .audio_info_marquee {\r\n  overflow: hidden;\r\n  width: calc(100% - 180px);\r\n  display: -webkit-box;\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n  margin-left: 10px; \r\n}\r\n\r\n.audio_player .audio_info {\r\n  display: none;\r\n  width: 100%;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  margin: 0;\r\n  font-size: 14px;\r\n  color: #313841; \r\n}\r\n\r\n.audio_player .audio_time_progress {\r\n  margin-right: 20px;\r\n  -ms-grid-row-align: center;\r\n  align-self: center;\r\n  color: #313841;\r\n  font-size: 14px; \r\n}\r\n\r\n.audio_player .audio_button {\r\n  padding-left: 11px;\r\n  padding-right: 11px;\r\n  margin-left: 4px;\r\n  margin-right: 4px;\r\n  cursor: pointer;\r\n  align-self: center;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  height: 50px; \r\n}\r\n\r\n.audio_player .play_pause_button .play_pause_inner {\r\n  height: 30px;\r\n  width: 30px;\r\n  overflow: hidden;\r\n  position: relative; \r\n}\r\n\r\n.audio_player .play_pause_button .left {\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #313841;\r\n  width: 36%;\r\n  transition: all 0.25s ease;\r\n  overflow: hidden; \r\n}\r\n\r\n.audio_player .play_pause_button .triangle_1 {\r\n  transform: translate(0, -100%); \r\n}\r\n\r\n.audio_player .play_pause_button .triangle_2 {\r\n  transform: translate(0, 100%); \r\n}\r\n\r\n.audio_player .play_pause_button .triangle_1,\r\n.audio_player .play_pause_button .triangle_2 {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  background-color: transparent;\r\n  width: 0;\r\n  height: 0;\r\n  border-right: 30px solid #F5F5F5;\r\n  border-top: 15px solid transparent;\r\n  border-bottom: 15px solid transparent;\r\n  transition: -webkit-transform 0.25s ease;\r\n  transition: transform 0.25s ease;\r\n  transition: transform 0.25s ease, \r\n  -webkit-transform 0.25s ease; \r\n}\r\n\r\n.audio_player .play_pause_button .right {\r\n  height: 100%;\r\n  float: right;\r\n  width: 36%;\r\n  background-color: #313841;\r\n  transition: all 0.25s ease; \r\n}\r\n\r\n.audio_player .play_pause_button.paused .left {\r\n  width: 50%; \r\n}\r\n\r\n.audio_player .play_pause_button.paused .right {\r\n  width: 50%; \r\n}\r\n\r\n.audio_player .play_pause_button.paused .triangle_1 {\r\n  transform: translate(0, -50%); \r\n}\r\n\r\n.audio_player .play_pause_button.paused .triangle_2 {\r\n  transform: translate(0, 50%); \r\n}\r\n\r\n.audio_player .skip_button.back {\r\n  transform: rotate(180deg); \r\n}\r\n\r\n.audio_player .skip_button .skip_button_inner {\r\n  display: flex;\r\n  flex-direction: row; \r\n}\r\n\r\n.audio_player .skip_button .right_facing_triangle {\r\n  width: 0;\r\n  height: 0;\r\n  border-left: 8px solid #313841;\r\n  border-top: 8px solid transparent;\r\n  border-bottom: 8px solid transparent; \r\n}\r\n \r\n@media screen and (min-width: 370px) {\r\n .audio_player .audio_info {\r\n    display: initial;\r\n    animation: marquee5 10s cubic-bezier(0, 0.23, 0.6, -0.09) infinite; } \r\n}\r\n\r\n@media screen and (min-width: 450px) {\r\n  .audio_player .audio_info {\r\n    animation: marquee4 10s cubic-bezier(0, 0.23, 0.7, -0.09) infinite; } \r\n}\r\n\r\n@media screen and (min-width: 550px) {\r\n  .audio_player .audio_info {\r\n    animation: marquee3 10s cubic-bezier(0, 0.23, 0.85, -0.09) infinite; } \r\n}\r\n\r\n@media screen and (min-width: 650px) {\r\n  .audio_player .audio_info {\r\n    animation: marquee2 10s cubic-bezier(0, 0.23, 1, -0.09) infinite; } \r\n}\r\n    \r\n@media screen and (min-width: 720px) {\r\n  .audio_player .audio_info {\r\n    animation: initial; } \r\n}", ""]);
+exports.push([module.i, "@-webkit-keyframes marquee1 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-100%);\r\n    transform: translateX(-100%); } \r\n}\r\n  \r\n@keyframes marquee1 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-100%);\r\n    transform: translateX(-100%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee2 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-200%);\r\n    transform: translateX(-200%); } \r\n}\r\n  \r\n@keyframes marquee2 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-200%);\r\n    transform: translateX(-200%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee3 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-300%);\r\n    transform: translateX(-300%); } \r\n}\r\n  \r\n@keyframes marquee3 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-300%);\r\n    transform: translateX(-300%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee4 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-400%);\r\n    transform: translateX(-400%); } \r\n}\r\n  \r\n@keyframes marquee4 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-400%);\r\n    transform: translateX(-400%); } \r\n}\r\n  \r\n@-webkit-keyframes marquee5 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-500%);\r\n    transform: translateX(-500%); } \r\n}\r\n  \r\n@keyframes marquee5 {\r\n  0% {\r\n    -webkit-transform: translateX(100%);\r\n    transform: translateX(100%); }\r\n  100% {\r\n    -webkit-transform: translateX(-500%);\r\n    transform: translateX(-500%); } \r\n}\r\n  \r\n  .noselect {\r\n    cursor: default;\r\n    /* http://stackoverflow.com/a/4407335/4956731 */\r\n    -webkit-touch-callout: none;\r\n    /* iOS Safari */\r\n    -webkit-user-select: none;\r\n    /* Chrome/Safari/Opera */\r\n    /* Konqueror */\r\n    -moz-user-select: none;\r\n    /* Firefox */\r\n    -ms-user-select: none;\r\n    /* IE/Edge */\r\n    user-select: none;\r\n    /* non-prefixed version, currently\r\n                                    not supported by any browser */ }\r\n  \r\n.hidden {\r\n  display: none !important; \r\n}\r\n  \r\n.audio_player {\r\n  display: flex;\r\n  flex-direction: row;\r\n  height: 100px;\r\n  width: 600px;\r\n  background-color: #cdebea;\r\n}\r\n\r\n.audio_player .spacer {\r\n  width: 10px; \r\n}\r\n\r\n.audio_player .audio_progress_container {\r\n  position: relative;\r\n  height: 100%;\r\n  -webkit-box-flex: 1;\r\n  flex-grow: 1; \r\n}\r\n    \r\n.audio_player .audio_progress {\r\n  border-radius: 3px;\r\n  background-image: linear-gradient(to left, #3cd2ce, #4bbad6);\r\n  height: 10px;\r\n  width: 0;\r\n  will-change: width; \r\n}\r\n\r\n.audio_player .audio_progress_overlay {\r\n  position: absolute;\r\n  top: 0;\r\n  bottom: 0;\r\n  left: 0;\r\n  right: 0;\r\n  display: flex;\r\n  flex-direction: row;\r\n  justify-content: space-between; \r\n}\r\n\r\n.audio_player .audio_info_marquee {\r\n  overflow: hidden;\r\n  width: calc(100% - 180px);\r\n  display: -webkit-box;\r\n  display: flex;\r\n  flex-direction: row;\r\n  align-items: center;\r\n  margin-left: 10px; \r\n}\r\n\r\n.audio_player .audio_info {\r\n  display: none;\r\n  width: 100%;\r\n  white-space: nowrap;\r\n  word-break: break-all;\r\n  margin: 0;\r\n  font-size: 14px;\r\n  color: #313841; \r\n}\r\n\r\n.audio_player .audio_time_progress {\r\n  margin-right: 20px;\r\n  -ms-grid-row-align: center;\r\n  align-self: center;\r\n  color: #313841;\r\n  font-size: 14px; \r\n}\r\n\r\n.audio_player .audio_button {\r\n  padding-left: 11px;\r\n  padding-right: 11px;\r\n  margin-left: 4px;\r\n  margin-right: 4px;\r\n  cursor: pointer;\r\n  align-self: center;\r\n  display: flex;\r\n  justify-content: center;\r\n  flex-direction: column;\r\n  height: 50px; \r\n}\r\n\r\n.audio_player .play_pause_button .play_pause_inner {\r\n  height: 30px;\r\n  width: 30px;\r\n  overflow: hidden;\r\n  position: relative; \r\n}\r\n\r\n.audio_player .play_pause_button .left {\r\n  height: 100%;\r\n  float: left;\r\n  background-color: #313841;\r\n  width: 36%;\r\n  transition: all 0.25s ease;\r\n  overflow: hidden; \r\n}\r\n\r\n.audio_player .play_pause_button .triangle_1 {\r\n  transform: translate(0, -100%); \r\n}\r\n\r\n.audio_player .play_pause_button .triangle_2 {\r\n  transform: translate(0, 100%); \r\n}\r\n\r\n.audio_player .play_pause_button .triangle_1,\r\n.audio_player .play_pause_button .triangle_2 {\r\n  position: absolute;\r\n  top: 0;\r\n  right: 0;\r\n  background-color: transparent;\r\n  width: 0;\r\n  height: 0;\r\n  border-right: 30px solid #cdebea;\r\n  border-top: 15px solid transparent;\r\n  border-bottom: 15px solid transparent;\r\n  transition: -webkit-transform 0.25s ease;\r\n  transition: transform 0.25s ease;\r\n  transition: transform 0.25s ease, \r\n  -webkit-transform 0.25s ease; \r\n}\r\n\r\n.audio_player .play_pause_button .right {\r\n  height: 100%;\r\n  float: right;\r\n  width: 36%;\r\n  background-color: #313841;\r\n  transition: all 0.25s ease; \r\n}\r\n\r\n.audio_player .play_pause_button.paused .left {\r\n  width: 50%; \r\n}\r\n\r\n.audio_player .play_pause_button.paused .right {\r\n  width: 50%; \r\n}\r\n\r\n.audio_player .play_pause_button.paused .triangle_1 {\r\n  transform: translate(0, -50%); \r\n}\r\n\r\n.audio_player .play_pause_button.paused .triangle_2 {\r\n  transform: translate(0, 50%); \r\n}\r\n\r\n.audio_player .skip_button.back {\r\n  transform: rotate(180deg); \r\n}\r\n\r\n.audio_player .skip_button .skip_button_inner {\r\n  display: flex;\r\n  flex-direction: row; \r\n}\r\n\r\n.audio_player .skip_button .right_facing_triangle {\r\n  width: 0;\r\n  height: 0;\r\n  border-left: 8px solid #313841;\r\n  border-top: 8px solid transparent;\r\n  border-bottom: 8px solid transparent; \r\n}\r\n \r\n@media screen and (min-width: 370px) {\r\n .audio_player .audio_info {\r\n    display: initial;\r\n    animation: marquee5 10s cubic-bezier(0, 0.23, 0.6, -0.09) infinite; } \r\n}\r\n\r\n@media screen and (min-width: 450px) {\r\n  .audio_player .audio_info {\r\n    animation: marquee4 10s cubic-bezier(0, 0.23, 0.7, -0.09) infinite; } \r\n}\r\n\r\n@media screen and (min-width: 550px) {\r\n  .audio_player .audio_info {\r\n    animation: marquee3 10s cubic-bezier(0, 0.23, 0.85, -0.09) infinite; } \r\n}\r\n\r\n@media screen and (min-width: 650px) {\r\n  .audio_player .audio_info {\r\n    animation: marquee2 10s cubic-bezier(0, 0.23, 1, -0.09) infinite; } \r\n}\r\n    \r\n@media screen and (min-width: 720px) {\r\n  .audio_player .audio_info {\r\n    animation: initial; } \r\n}", ""]);
 
 // exports
 
@@ -30687,12 +30726,6 @@ var FLACTagReader = function (_MediaTagReader) {
 }(MediaTagReader);
 
 module.exports = FLACTagReader;
-
-/***/ }),
-/* 111 */
-/***/ (function(module, exports) {
-
-
 
 /***/ })
 /******/ ]);

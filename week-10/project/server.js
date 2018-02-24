@@ -81,13 +81,25 @@ app.post('/saveplaylist/:playlistname', function(req, res) {
 
 app.delete('/deleteplaylist/:playlistname', function(req, res) {
     var deletePlayList = JSON.stringify(req.params.playlistname);
-    console.log(deletePlayList)
     var deleted = connection.query(`DELETE FROM playlists WHERE playlist_title=${deletePlayList} LIMIT 1`,
     function(err, deleted){
         if(err){
             console.log("Something went wrong");
         } 
             res.send("Deleted: " + deletePlayList);
+    });
+
+});
+
+app.delete('/deletetrack', function(req, res) {
+    var artist = JSON.stringify(req.query.artist);
+    var track = JSON.stringify(req.query.title);
+    var deleted = connection.query(`DELETE FROM tracks WHERE title=${track} AND artist=${artist} LIMIT 1`,
+    function(err, deleted){
+        if(err){
+            console.log("Something went wrong");
+        } 
+            res.send("Deleted: " + req.query);
     });
 
 });

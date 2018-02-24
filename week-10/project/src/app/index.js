@@ -7,17 +7,12 @@ import MyTrackListItem from './tracklistitem';
 import AudioPlayer from 'react-responsive-audio-player';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import swal from 'sweetalert';
-import { onPlayListClick } from './functions';
 
 require('./css/style.css');
 require('./css/player.css');
 
-var jsmediatags = require('jsmediatags');
-
+const jsmediatags = require('jsmediatags');
 const url= "http://localhost:8080/";
-const playListUrl = "http://localhost:8080/playlists";
-const trackListUrl = "http://localhost:8080/playlist-tracks/";
-
 
 class App extends React.Component{
     render(){
@@ -40,6 +35,7 @@ class MusicPlayer extends React.Component{
             currentTrack: [],
         };
         this.onDelete = this.onDelete.bind(this);
+        this.onDeleteTrack = this.onDeleteTrack.bind(this);
         this.onAdd = this.onAdd.bind(this);
         this.onPlayListClick = this.onPlayListClick.bind(this);
         this.onTrackListClick = this.onTrackListClick.bind(this);
@@ -47,13 +43,13 @@ class MusicPlayer extends React.Component{
     }
         
     componentDidMount(){
-        fetch(playListUrl).then( data => data.json())        
+        fetch(url + "playlists/").then( data => data.json())        
         .then( data => {
             this.setState({
                 myPlayList: data
             })
         })
-        fetch(trackListUrl).then( trackdata => trackdata.json())        
+        fetch(url + "playlist-tracks/").then( trackdata => trackdata.json())        
         .then(trackdata => {
             this.makeDataForUse(trackdata) 
         })
@@ -76,7 +72,7 @@ class MusicPlayer extends React.Component{
         if (selectedPlaylist[0].playlist_id === 0){
             this.componentDidMount()
         } else {
-            fetch(trackListUrl + selectedPlaylist[0].playlist_id)
+            fetch(url + "playlist-tracks/" + selectedPlaylist[0].playlist_id)
             .then( data => data.json())        
             .then( data => {
                 this.makeDataForUse(data) 
@@ -93,7 +89,7 @@ class MusicPlayer extends React.Component{
             currentTrack: selectedTrack,
         })
 
-        let currentUrl = "http://localhost:8080/" + selectedTrack[0].url;
+        let currentUrl = url + selectedTrack[0].url;
 
         jsmediatags.read(currentUrl, {
             onSuccess: function(tag) {
@@ -151,6 +147,41 @@ class MusicPlayer extends React.Component{
         });
     }
 
+    onDeleteTrack(item){
+        swal({
+            title: 'Are you sure you want to delete this track?',
+            icon: 'warning',
+            buttons: true,
+            dangerMode: true,
+        }).then((isDeleted) => {
+            if (isDeleted) {
+                var itemArray= item.split(' - ');
+                fetch(url + "deletetrack?artist=" + itemArray[0] + "&title=" + itemArray[1], {
+                    method: "DELETE",
+                    body: JSON.stringify({
+                        artistName: itemArray[0],
+                        trackName: itemArray[1],
+                    })
+                })
+                .then( (response) => { 
+                    this.componentDidMount();
+                });
+
+                swal('Your track has been deleted!', {
+                    icon: 'success',
+                    timer: 1600,
+                    buttons: false,
+                });
+            } else {
+                swal({
+                    text: 'Your track is in safe!',
+                    timer: 1600,
+                    buttons: false,
+                });
+            }
+        });
+    }
+
     onAdd(){
         swal({
             text: "Add new playlist:",
@@ -182,6 +213,7 @@ class MusicPlayer extends React.Component{
         });
           
     }
+    
       
     render(){
         var myPlayList = this.state.myPlayList;
@@ -191,7 +223,7 @@ class MusicPlayer extends React.Component{
         }.bind(this));
         var myTrackList = this.state.myTrackList;
         myTrackList = myTrackList.map(function(item, index){
-            return(<MyTrackListItem key={index} item={item.displayText} onDelete={this.onDelete} onTrackListClick={this.onTrackListClick}/>
+            return(<MyTrackListItem key={index} item={item.displayText} onDeleteTrack={this.onDeleteTrack} onTrackListClick={this.onTrackListClick}/>
             );
         }.bind(this));
         let myTrack = []; 

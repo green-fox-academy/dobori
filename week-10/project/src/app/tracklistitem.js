@@ -8,6 +8,11 @@ class MyTrackListItem extends React.Component{
     constructor(props){
         super(props);
         this.handleClick = this.handleClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+    }
+
+    handleDelete(){
+        this.props.onDeleteTrack(this.props.item);
     }
 
     handleClick(){
@@ -19,7 +24,7 @@ class MyTrackListItem extends React.Component{
             <li>
                 <div className="myplaylist-item">
                     <span className="item-name" onClick={this.handleClick}>{this.props.item}</span>
-                    
+                    <span className="item-remove" onClick={this.handleDelete}> x </span>
                 </div>
             </li>
         );
